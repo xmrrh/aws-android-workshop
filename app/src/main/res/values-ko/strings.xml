@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">SocialAndroidApp</string>
+    <string name="write_title">제 목 :</string>
+    <string name="write_title_hint">제목을 입력하세요</string>
+    <string name="write_content_hint">새 글을 작성하고 있습니다.</string>
+    <string name="write_uploadbtn_text">사진 올리기</string>
+    <string name="cancel_btn">취소</string>
+    <string name="complete_btn">완료</string>
+    <string name="setting_title">프로필 설정</string>
+    <string name="setting_text_prefer">선호하는 언어 설정</string>
+    <string name="setting_grage_txt">회원 등급 설정</string>
+    <string name="setting_save_btn">저장</string>
+    <string name="item_title">제목 :</string>
+    <string name="item_traslate_btn">번역</string>
+    <string name="main_title_txt">글 목록</string>
+    <string name="main_profile_btn">프로필 설정</string>
+    <string name="main_write_btn">글쓰기</string>
+    <string name="warning_picture">사진은 필수입니다.</string>
+    <string name="write_main_title">새 글 작성</string>
+
+    <string-array name="grade_array">
+        <item>PLATINUM</item>
+        <item>GOLD</item>
+        <item>SILVER</item>
+    </string-array>
+
+
+    <string-array name="language_array">
+        <item>Chinese (Simplified)</item>
+        <item>Chinese (Traditional)</item>
+        <item>Indonesian</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Malay</item>
+        <item>Danish</item>
+        <item>English</item>
+        <item>German</item>
+        <item>Norwegian</item>
+        <item>Swedish</item>
+        <item>French</item>
+        <item>Italian</item>
+        <item>Spanish</item>
+        <item>Portuguese</item>
+        <item>Czech</item>
+        <item>Polish</item>
+        <item>Russian</item>
+        <item>Arabic</item>
+        <item>Hebrew</item>
+        <item>Hindi</item>
+        <item>Persian</item>
+        <item>Finnish</item>
+        <item>Turkish</item>
+    </string-array>
+</resources>
