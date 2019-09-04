@@ -12,26 +12,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.amazonaws.amplify.generated.graphql.PutPostWithPhotoMutation;
-import com.apollographql.apollo.GraphQLCall;
-import com.apollographql.apollo.api.Response;
-import com.apollographql.apollo.exception.ApolloException;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
-import type.S3ObjectInput;
 
 public class WriteActivity extends AppCompatActivity {
 
@@ -46,8 +36,7 @@ public class WriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write);
-        //appsync
-        ClientFactory.appSyncInit(getApplicationContext());
+
 
         Button cancelBtn = findViewById(R.id.cancel);
         Button saveBtn = findViewById(R.id.save);
@@ -77,8 +66,7 @@ public class WriteActivity extends AppCompatActivity {
                     return;
                 }
 
-                //WriteActivity.this.finish();
-                addComment();
+                WriteActivity.this.finish();
 
             }
         });
@@ -192,61 +180,4 @@ public class WriteActivity extends AppCompatActivity {
         imageView.setImageBitmap(rotatedBitmap);
 
     }
-
-
-    //appsync upload
-    private final String putYourBucketName = "xmrrh-east-1";
-    private final String mimeType = "image/jpg";
-    private final String region = "xmrrh-east-1";
-    private final String folderName = "public/";
-
-    private void addComment() {
-
-        showWaitDialog();
-
-        S3ObjectInput s3ObjectInput = S3ObjectInput.builder()
-                .bucket(putYourBucketName)
-                .key(folderName + UUID.randomUUID().toString())
-                .region(region)
-                .localUri(bitmapPath)
-                .mimeType(mimeType).build();
-        PutPostWithPhotoMutation addPostMutation = PutPostWithPhotoMutation.builder()
-                .title(title.getText().toString())
-                .author(ClientFactory.getUserID())
-                .url(bitmapPath)
-                .content(contents.getText().toString())
-                .ups(0)
-                .downs(0)
-                .photo(s3ObjectInput)
-                .id(UUID.randomUUID().toString())
-                .build();
-
-        ClientFactory.getAppSyncClient().mutate(addPostMutation).enqueue(postsCallback);
-    }
-    // Mutation callback code
-    private GraphQLCall.Callback<PutPostWithPhotoMutation.Data> postsCallback = new GraphQLCall.Callback<PutPostWithPhotoMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<PutPostWithPhotoMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dismissWaitDialog();
-                    WriteActivity.this.finish();
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dismissWaitDialog();
-
-                    Log.e("", "Failed to perform AddPostMutation", e);
-                    WriteActivity.this.finish();
-                }
-            });
-        }
-    };
 }

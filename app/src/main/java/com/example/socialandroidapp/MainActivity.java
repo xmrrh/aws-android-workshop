@@ -9,21 +9,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.amazonaws.amplify.generated.graphql.ListPostsQuery;
-import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
-import com.apollographql.apollo.GraphQLCall;
-import com.apollographql.apollo.api.Response;
-import com.apollographql.apollo.exception.ApolloException;
-
-import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermission();
-
-        //appsync
-        ClientFactory.appSyncInit(getApplicationContext());
 
         Button settingBtn = findViewById(R.id.setting);
         Button writeBtn = findViewById(R.id.writing);
@@ -59,14 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        mAdapter = new PostAdapter(getApplicationContext());
-
-        recyclerView = findViewById(R.id.itemlist);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(mAdapter);
-
     }
 
     private void checkPermission(){
@@ -94,45 +72,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-    protected void onResume() {
-        super.onResume();
-        //appsync
-        queryList();
-    }
-
-    private PostAdapter mAdapter;
-
-
-    //appsync
-    public void queryList() {
-        ClientFactory.getAppSyncClient().query(ListPostsQuery.builder().build())
-                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
-                .enqueue(queryCallback);
-    }
-    //appsync
-    private ArrayList<ListPostsQuery.Item> mItems;
-    //appsync
-    private GraphQLCall.Callback<ListPostsQuery.Data> queryCallback = new GraphQLCall.Callback<ListPostsQuery.Data>() {
-
-        @Override
-        public void onResponse(@Nonnull Response<ListPostsQuery.Data> response) {
-            Log.e(TAG, response.data().listPosts().items().toString());
-            mItems = new ArrayList<>(response.data().listPosts().items());
-
-            /* Log.i(TAG, "Retrieved list items: " + mItems.toString()); */
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mAdapter.setItems(mItems);
-                    mAdapter.notifyDataSetChanged();
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull ApolloException e) {
-
-        }
-    };
 }
