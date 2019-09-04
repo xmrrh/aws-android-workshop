@@ -1,0 +1,38 @@
+# this is an auto generated file. This will be overwritten
+query GetPost($id: ID!) {
+  getPost(id: $id) {
+    id
+    author
+    title
+    content
+    url
+    ups
+    downs
+    photo {
+      ...S3Object
+    }
+    version
+  }
+}
+query ListPosts(
+  $filter: ModelPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      author
+      title
+      content
+      url
+      ups
+      downs
+      photo {
+        ...S3Object
+      }
+      version
+    }
+    nextToken
+  }
+}
