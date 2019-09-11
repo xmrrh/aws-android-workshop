@@ -18,6 +18,7 @@
     <string name="warning_picture">Photo is required</string>
     <string name="write_main_title">Create new post</string>
 
+
     <string-array name="grade_array">
         <item>PLATINUM</item>
         <item>GOLD</item>
