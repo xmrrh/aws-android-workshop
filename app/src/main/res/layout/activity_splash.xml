@@ -4,34 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#dee0e2"
     tools:context=".SplashActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Social Sample App"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Powered by AWS Cognito"
-            android:textAlignment="center" />
-    </LinearLayout>
-
-    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
@@ -44,14 +21,19 @@
             android:id="@+id/btnFacebookLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/colorPrimary"
             android:onClick="openFacebookLogin"
-            android:text="페이스북으로 시작" />
+            android:text="페이스북으로 시작"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btnEmailLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Google로 시작" />
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
+            android:text="Google로 시작"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,4 +66,17 @@
                 android:text="회원가입" />
         </LinearLayout>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/devday" />
 </androidx.constraintlayout.widget.ConstraintLayout>
