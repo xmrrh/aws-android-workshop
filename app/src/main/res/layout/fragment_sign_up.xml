@@ -42,7 +42,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="비밀번호 (영문,숫자,특수문자 조합)"
+        android:hint="비밀번호 (8글자 이상)"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
