@@ -3,11 +3,11 @@ package com.example.socialandroidapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.Callback;
 import com.amazonaws.mobile.client.results.SignInResult;
@@ -62,19 +62,13 @@ public class SignUpActivity extends FragmentActivity
         AWSMobileClient.getInstance().signUp(userName, password, attributes, null, new Callback<SignUpResult>() {
             @Override
             public void onResult(final SignUpResult signUpResult) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "Sign-up callback state: " + signUpResult.getConfirmationState());
-                        if (!signUpResult.getConfirmationState()) {
-                            final UserCodeDeliveryDetails details = signUpResult.getUserCodeDeliveryDetails();
-                            //makeToast("Confirm sign-up with: " + details.getDestination());
-                            Log.d(TAG, "Confirm sign-up with: " + details.getDestination());
-//                            _signIn(userName, password);
-                            setSignUpConfirmFragment();
-                        } else {
-//                            makeToast("Sign-up done.");
-                        }
+                runOnUiThread(() -> {
+                    if (!signUpResult.getConfirmationState()) {
+                        final UserCodeDeliveryDetails details = signUpResult.getUserCodeDeliveryDetails();
+                        makeToast(context, "Confirm sign-up with: " + details.getDestination());
+                        setSignUpConfirmFragment();
+                    } else {
+                        makeToast(context, "Sign-up done.");
                     }
                 });
             }
@@ -82,39 +76,10 @@ public class SignUpActivity extends FragmentActivity
             @Override
             public void onError(Exception e) {
                 Log.e(TAG, "Sign-up error", e);
-            }
-        });
-    }
-
-    public void confirmSignIn(String signInChallengeResponse) {
-        AWSMobileClient.getInstance().confirmSignIn(signInChallengeResponse, new Callback<SignInResult>() {
-            @Override
-            public void onResult(SignInResult signInResult) {
-                Log.d(TAG, "Sign-in callback state: " + signInResult.getSignInState());
-                switch (signInResult.getSignInState()) {
-                    case DONE:
-//                        makeToast("Sign-in done.");
-                        Toast.makeText(context, "Sign-in done.", Toast.LENGTH_SHORT).show();
-                        CommonAction.openMain(context);
-                        break;
-                    case SMS_MFA:
-//                        makeToast("Please confirm sign-in with SMS.");
-                        Toast.makeText(context, "Please confirm sign-in with SMS.", Toast.LENGTH_SHORT).show();
-                        break;
-                    case NEW_PASSWORD_REQUIRED:
-//                        makeToast("Please confirm sign-in with new password.");
-                        Toast.makeText(context, "Please confirm sign-in with new password.", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-//                        makeToast("Unsupported sign-in confirmation: " + signInResult.getSignInState());
-                        Toast.makeText(context, "Unsupported sign-in confirmation: " + signInResult.getSignInState(), Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.e(TAG, "Sign-in error", e);
+                runOnUiThread(() -> {
+                    if (e instanceof AmazonServiceException)
+                        makeToast(context, ((AmazonServiceException) e).getErrorMessage());
+                });
             }
         });
     }
@@ -124,18 +89,15 @@ public class SignUpActivity extends FragmentActivity
         AWSMobileClient.getInstance().confirmSignUp(userName, code, new Callback<SignUpResult>() {
             @Override
             public void onResult(final SignUpResult signUpResult) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "Sign-up callback state: " + signUpResult.getConfirmationState());
-                        if (!signUpResult.getConfirmationState()) {
-                            final UserCodeDeliveryDetails details = signUpResult.getUserCodeDeliveryDetails();
-                            makeToast(context,"Confirm sign-up with: " + details.getDestination());
-                        } else {
-                            makeToast(context, "Sign-up done.");
-                            _signIn(userName, password);
-                            CommonAction.openMain(context);
-                        }
+                runOnUiThread(() -> {
+                    Log.d(TAG, "Sign-up callback state: " + signUpResult.getConfirmationState());
+                    if (!signUpResult.getConfirmationState()) {
+                        final UserCodeDeliveryDetails details = signUpResult.getUserCodeDeliveryDetails();
+                        makeToast(context,"Confirm sign-up with: " + details.getDestination());
+                    } else {
+                        makeToast(context, "Sign-up done.");
+                        // SignIn and move to MainActivity
+                        _signIn(userName, password);
                     }
                 });
             }
@@ -143,6 +105,10 @@ public class SignUpActivity extends FragmentActivity
             @Override
             public void onError(Exception e) {
                 Log.e(TAG, "Confirm sign-up error", e);
+                runOnUiThread(() -> {
+                    if (e instanceof AmazonServiceException)
+                        makeToast(context, ((AmazonServiceException) e).getErrorMessage());
+                });
             }
         });
     }
@@ -151,25 +117,22 @@ public class SignUpActivity extends FragmentActivity
         AWSMobileClient.getInstance().signIn(username, password, null, new Callback<SignInResult>() {
             @Override
             public void onResult(final SignInResult signInResult) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "Sign-in callback state: " + signInResult.getSignInState());
-                        switch (signInResult.getSignInState()) {
-                            case DONE:
-                                makeToast(context, "Sign-in done.");
-                                CommonAction.openMain(context);
-                                break;
-                            case SMS_MFA:
-                                makeToast(context, "Please confirm sign-in with SMS.");
-                                break;
-                            case NEW_PASSWORD_REQUIRED:
-                                makeToast(context, "Please confirm sign-in with new password.");
-                                break;
-                            default:
-                                makeToast(context, "Unsupported sign-in confirmation: " + signInResult.getSignInState());
-                                break;
-                        }
+                runOnUiThread(() -> {
+                    Log.d(TAG, "Sign-in callback state: " + signInResult.getSignInState());
+                    switch (signInResult.getSignInState()) {
+                        case DONE:
+                            makeToast(context, "Sign-in done.");
+                            CommonAction.openMain(context);
+                            break;
+                        case SMS_MFA:
+                            makeToast(context, "Please confirm sign-in with SMS.");
+                            break;
+                        case NEW_PASSWORD_REQUIRED:
+                            makeToast(context, "Please confirm sign-in with new password.");
+                            break;
+                        default:
+                            makeToast(context, "Unsupported sign-in confirmation: " + signInResult.getSignInState());
+                            break;
                     }
                 });
             }
@@ -177,6 +140,10 @@ public class SignUpActivity extends FragmentActivity
             @Override
             public void onError(Exception e) {
                 Log.e(TAG, "Sign-in error", e);
+                runOnUiThread(() -> {
+                    if (e instanceof AmazonServiceException)
+                        makeToast(context, ((AmazonServiceException) e).getErrorMessage());
+                });
             }
         });
     }

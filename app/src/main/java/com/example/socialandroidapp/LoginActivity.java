@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.Callback;
 import com.amazonaws.mobile.client.results.SignInResult;
@@ -79,25 +80,22 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         AWSMobileClient.getInstance().signIn(userName, password, null, new Callback<SignInResult>() {
             @Override
             public void onResult(final SignInResult signInResult) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "Sign-in callback state: " + signInResult.getSignInState());
-                        switch (signInResult.getSignInState()) {
-                            case DONE:
-                                makeToast(context,"Sign-in done.");
-                                CommonAction.openMain(context);
-                                break;
-                            case SMS_MFA:
-                                makeToast(context, "Please confirm sign-in with SMS.");
-                                break;
-                            case NEW_PASSWORD_REQUIRED:
-                                makeToast(context, "Please confirm sign-in with new password.");
-                                break;
-                            default:
-                                makeToast(context, "Unsupported sign-in confirmation: " + signInResult.getSignInState());
-                                break;
-                        }
+                runOnUiThread(() -> {
+                    Log.d(TAG, "Sign-in callback state: " + signInResult.getSignInState());
+                    switch (signInResult.getSignInState()) {
+                        case DONE:
+                            makeToast(context,"Sign-in done.");
+                            CommonAction.openMain(context);
+                            break;
+                        case SMS_MFA:
+                            makeToast(context, "Please confirm sign-in with SMS.");
+                            break;
+                        case NEW_PASSWORD_REQUIRED:
+                            makeToast(context, "Please confirm sign-in with new password.");
+                            break;
+                        default:
+                            makeToast(context, "Unsupported sign-in confirmation: " + signInResult.getSignInState());
+                            break;
                     }
                 });
             }
@@ -105,6 +103,10 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             @Override
             public void onError(Exception e) {
                 Log.e(TAG, "Sign-in error", e);
+                runOnUiThread(() -> {
+                    if (e instanceof AmazonServiceException)
+                        makeToast(context, ((AmazonServiceException) e).getErrorMessage());
+                });
             }
         });
     }
