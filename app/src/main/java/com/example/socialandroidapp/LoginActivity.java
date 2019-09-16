@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     EditText etEmail;
 
     @BindView(R.id.etPassword)
-    @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS)
+    @Password(min = 8, scheme = Password.Scheme.ANY)
     EditText etPassword;
 
     private Context context;

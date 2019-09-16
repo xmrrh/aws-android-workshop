@@ -43,7 +43,7 @@ public class SignUpFragment extends Fragment implements Validator.ValidationList
     EditText etEmail;
 
     @BindView(R.id.etPassword)
-    @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS)
+    @Password(min = 8, scheme = Password.Scheme.ANY)
     EditText etPassword;
 
     @BindView(R.id.etPassword1)
