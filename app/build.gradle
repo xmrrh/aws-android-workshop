@@ -35,11 +35,12 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
     //For AWSMobileClient only:
     implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.15.2'
     implementation 'com.amazonaws:aws-android-sdk-cognitoauth:2.15.2'
 
-    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }

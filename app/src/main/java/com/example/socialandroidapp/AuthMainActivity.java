@@ -29,20 +29,6 @@ public class AuthMainActivity extends AppCompatActivity {
         context = this;
     }
 
-    public void openLogin(View view) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    public void openRegistration(View view) {
-        Intent intent = new Intent(context, SignUpActivity.class);
-        startActivity(intent);
-    }
-
-    public void openFacebookLogin(View view) {
-        _openFacebookLogin();
-    }
-
     private void _openFacebookLogin() {
         HostedUIOptions hostedUIOptions = HostedUIOptions.builder()
                 .scopes("openid", "email")
@@ -65,4 +51,32 @@ public class AuthMainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent activityIntent = getIntent();
+        if (activityIntent.getData() != null &&
+                "socialdemoapp".equals(activityIntent.getData().getScheme())) {
+            if (AWSMobileClient.getInstance().handleAuthResponse(activityIntent))
+                CommonAction.openMain(context);
+            else
+                CommonAction.openAuthMain(context);
+        }
+    }
+
+    public void openLogin(View view) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void openRegistration(View view) {
+        Intent intent = new Intent(context, SignUpActivity.class);
+        startActivity(intent);
+    }
+
+    public void openFacebookLogin(View view) {
+        _openFacebookLogin();
+    }
+
 }

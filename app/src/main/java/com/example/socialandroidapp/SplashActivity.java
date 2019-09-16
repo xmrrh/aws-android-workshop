@@ -26,26 +26,11 @@ public class SplashActivity extends AppCompatActivity {
         _initCognito();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Intent activityIntent = getIntent();
-        if (activityIntent.getData() != null &&
-                "socialdemoapp".equals(activityIntent.getData().getScheme())) {
-            if (AWSMobileClient.getInstance().handleAuthResponse(activityIntent))
-                CommonAction.openMain(context);
-            else
-                CommonAction.openAuthMain(context);
-        }
-    }
-
     private void _initCognito() {
         AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
             @Override
             public void onResult(UserStateDetails userStateDetails) {
-
                 switch (userStateDetails.getUserState()){
-
                     case SIGNED_IN:
                         // Open Main Activity
                         CommonAction.openMain(context);
@@ -58,6 +43,8 @@ public class SplashActivity extends AppCompatActivity {
                         AWSMobileClient.getInstance().signOut();
                         break;
                 }
+
+
             }
 
             @Override
