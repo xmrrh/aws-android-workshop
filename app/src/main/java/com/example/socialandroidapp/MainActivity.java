@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    protected void onResume() {
+        super.onResume();
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
