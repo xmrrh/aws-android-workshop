@@ -13,12 +13,8 @@
         <activity android:name=".AuthMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="socialdemoapp" />
-            </intent-filter>
+            <!-- Add code here-->
+
         </activity>
         <activity android:name=".SignUpActivity" />
         <activity
