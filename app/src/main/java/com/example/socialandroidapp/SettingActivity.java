@@ -9,6 +9,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
+
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -23,6 +25,7 @@ public class SettingActivity extends AppCompatActivity {
 
         Button cancelBtn = findViewById(R.id.cancel);
         Button saveBtn = findViewById(R.id.save);
+        Button btnLogout = findViewById(R.id.btnLogout);
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +48,14 @@ public class SettingActivity extends AppCompatActivity {
         });
         setSpinnerDestinationLanguage();
         setSpinnerCustomerGrade();
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AWSMobileClient.getInstance().signOut();
+                CommonAction.openAuthMain(SettingActivity.this);
+            }
+        });
     }
 
     private void saveSettings() {

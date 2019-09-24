@@ -51,4 +51,6 @@
         <item>Finnish</item>
         <item>Turkish</item>
     </string-array>
+    <string name="setting_signout">로그아웃</string>
+    <string name="setting_logout_btn">로그아웃</string>
 </resources>
