@@ -5,12 +5,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.mobile.client.Callback;
 import com.amazonaws.mobile.client.UserStateDetails;
 import com.amazonaws.mobile.client.UserStateListener;
-import com.amazonaws.mobile.client.results.SignInResult;
-
-import static com.example.socialandroidapp.CommonUtil.makeToast;
 
 public class CommonAction {
     public static void openMain(Context context){
