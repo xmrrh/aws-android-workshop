@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CommonAction.checkSession(this);
+        CommonAction.checkSession(this, false);
         checkPermission();
 
         Button settingBtn = findViewById(R.id.setting);
