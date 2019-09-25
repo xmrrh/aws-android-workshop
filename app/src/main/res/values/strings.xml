@@ -19,13 +19,15 @@
     <string name="write_main_title">Create new post</string>
 
 
+    <string name="setting_signout">Logout</string>
+
+
+    <string name="setting_logout_btn">LOGOUT</string>
     <string-array name="grade_array">
         <item>PLATINUM</item>
         <item>GOLD</item>
         <item>SILVER</item>
     </string-array>
-
-
     <string-array name="language_array">
         <item>Chinese (Simplified)</item>
         <item>Chinese (Traditional)</item>
@@ -52,6 +54,4 @@
         <item>Finnish</item>
         <item>Turkish</item>
     </string-array>
-    <string name="setting_signout">Logout</string>
-    <string name="setting_logout_btn">LOGOUT</string>
 </resources>

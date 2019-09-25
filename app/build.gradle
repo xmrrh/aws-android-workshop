@@ -40,7 +40,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
     //For AWSMobileClient only:
-    implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.15.2'
-    implementation 'com.amazonaws:aws-android-sdk-cognitoauth:2.15.2'
+    implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.16.0'
+    implementation 'com.amazonaws:aws-android-sdk-cognitoauth:2.16.0'
 
 }
