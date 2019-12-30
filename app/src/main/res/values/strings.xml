@@ -23,6 +23,20 @@
 
 
     <string name="setting_logout_btn">LOGOUT</string>
+    <string name="start_fb">Login with Facebook</string>
+    <string name="start_google">Login with Google</string>
+    <string name="login_email">Login with Email</string>
+    <string name="signup">Sign Up</string>
+    <string name="email_address">Email address</string>
+    <string name="pw_8">password - least 8 characters, special, uppercase, and numbers</string>
+    <string name="login">Login</string>
+    <string name="forget_pw">Forgot Password?</string>
+    <string name="signup_email">Sign up with Email</string>
+    <string name="enter_address">Enter Email Address</string>
+    <string name="confirm_pw">confirm password</string>
+    <string name="user_check">confirm user information</string>
+    <string name="code_confirm">Enter code</string>
+    <string name="enter">Enter</string>
     <string-array name="grade_array">
         <item>PLATINUM</item>
         <item>GOLD</item>

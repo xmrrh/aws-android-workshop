@@ -53,4 +53,18 @@
     </string-array>
     <string name="setting_signout">로그아웃</string>
     <string name="setting_logout_btn">로그아웃</string>
+    <string name="start_fb">페이스북으로 시작</string>
+    <string name="start_google">Google로 시작</string>
+    <string name="login_email">이메일로 로그인</string>
+    <string name="email_address">이메일 주소 입력</string>
+    <string name="pw_8">비밀번호 (8글자 이상)</string>
+    <string name="login">로그인</string>
+    <string name="forget_pw">비밀번호를 잊으셨나요?</string>
+    <string name="signup_email">이메일로 회원가입</string>
+    <string name="enter_address">이메일 주소 입력</string>
+    <string name="confirm_pw">비밀번호 확인</string>
+    <string name="signup">회원가입</string>
+    <string name="user_check">사용자 정보 확인</string>
+    <string name="code_confirm">확인코드 입력</string>
+    <string name="enter">입력</string>
 </resources>

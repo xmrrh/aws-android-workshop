@@ -23,7 +23,7 @@
             android:layout_height="50dp"
             android:background="@color/colorPrimary"
             android:onClick="openFacebookLogin"
-            android:text="페이스북으로 시작"
+            android:text="@string/start_fb"
             android:textColor="@android:color/white" />
 
         <Button
@@ -32,7 +32,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:background="@color/colorPrimary"
-            android:text="Google로 시작"
+            android:text="@string/start_google"
             android:textColor="@android:color/white" />
 
         <LinearLayout
@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:onClick="openLogin"
                 android:padding="4dp"
-                android:text="이메일로 로그인 " />
+                android:text="@string/login_email" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -65,7 +65,7 @@
                 android:clickable="false"
                 android:onClick="openRegistration"
                 android:padding="4dp"
-                android:text="회원가입" />
+                android:text="@string/signup" />
         </LinearLayout>
     </LinearLayout>
 
