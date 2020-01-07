@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSION_CAMERA = 1111;
-    private static final String TAG = "dev-day-main";
+    private static final String TAG = "tko-main";
     private RecyclerView recyclerView;
     //private PostAdapter mAdapter;
 
