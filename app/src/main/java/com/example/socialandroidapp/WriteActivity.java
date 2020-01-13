@@ -58,20 +58,7 @@ public class WriteActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bitmapPath == null) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.warning_picture), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                WriteActivity.this.finish();
-
-            }
-        });
-
+        
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
